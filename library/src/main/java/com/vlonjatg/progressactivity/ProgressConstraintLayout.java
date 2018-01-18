@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ProgressConstraintLayout extends ConstraintLayout implements ProgressLayout {
+public class ProgressConstraintLayout extends ConstraintLayout implements XTProgressLayout {
 
     private final String CONTENT = "type_content";
     private final String LOADING = "type_loading";
@@ -36,6 +36,7 @@ public class ProgressConstraintLayout extends ConstraintLayout implements Progre
 
     private View loadingState;
     private ProgressBar loadingStateProgressBar;
+    private TextView loadingStateTextView;
 
     private View emptyState;
     private ImageView emptyStateImageView;
@@ -52,6 +53,8 @@ public class ProgressConstraintLayout extends ConstraintLayout implements Progre
     private int loadingStateProgressBarHeight;
     private int loadingStateProgressBarColor;
     private int loadingStateBackgroundColor;
+    private int loadingStateTextColor;
+    private int loadingStateTextSize;
 
     private int emptyStateImageWidth;
     private int emptyStateImageHeight;
@@ -105,6 +108,8 @@ public class ProgressConstraintLayout extends ConstraintLayout implements Progre
         loadingStateBackgroundColor =
                 typedArray.getColor(R.styleable.ProgressActivity_loadingBackgroundColor, Color.TRANSPARENT);
 
+        loadingStateTextColor=typedArray.getColor(R.styleable.ProgressActivity_loadingTextColor, Color.BLACK);
+        loadingStateTextSize=typedArray.getColor(R.styleable.ProgressActivity_loadingTextSize, 14);
         //Empty state attrs
         emptyStateImageWidth =
                 typedArray.getDimensionPixelSize(R.styleable.ProgressActivity_emptyImageWidth, 308);
@@ -176,6 +181,11 @@ public class ProgressConstraintLayout extends ConstraintLayout implements Progre
     }
 
     @Override
+    public void showLoading(String loadingtext) {
+        switchState(LOADING, 0, null, loadingtext, null, null, Collections.<Integer>emptyList());
+    }
+
+    @Override
     public void showLoading(List<Integer> idsOfViewsNotToHide) {
         switchState(LOADING, 0, null, null, null, null, idsOfViewsNotToHide);
     }
@@ -233,6 +243,7 @@ public class ProgressConstraintLayout extends ConstraintLayout implements Progre
             case LOADING:
                 setContentVisibility(false, idsOfViewsNotToHide);
                 inflateLoadingView();
+                loadingStateTextView.setText(description);
                 break;
             case EMPTY:
                 setContentVisibility(false, idsOfViewsNotToHide);
@@ -329,7 +340,7 @@ public class ProgressConstraintLayout extends ConstraintLayout implements Progre
 
     private void inflateLoadingView() {
         if (loadingState == null) {
-            view = inflater.inflate(R.layout.view_loading, null);
+            view = inflater.inflate(R.layout.view_loading_text, null);
             loadingState = view.findViewById(R.id.layout_loading);
             loadingState.setTag(LOADING);
 
@@ -344,12 +355,18 @@ public class ProgressConstraintLayout extends ConstraintLayout implements Progre
                 this.setBackgroundColor(loadingStateBackgroundColor);
             }
 
+            //add by dxs
+            loadingStateTextView=view.findViewById(R.id.progress_text_loading);
+            loadingStateTextView.setTextSize(loadingStateTextSize);
+            loadingStateTextView.setTextColor(loadingStateTextColor);
+
             LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
             layoutParams.topToTop = ConstraintSet.PARENT_ID;
             layoutParams.bottomToBottom = ConstraintSet.PARENT_ID;
             layoutParams.startToStart = ConstraintSet.PARENT_ID;
             layoutParams.endToEnd = ConstraintSet.PARENT_ID;
+            layoutParams.verticalBias=0.33f;
 
             addView(loadingState, layoutParams);
         } else {
