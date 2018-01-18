@@ -103,7 +103,7 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
                 typedArray.getDimensionPixelSize(R.styleable.ProgressActivity_loadingProgressBarHeight, 108);
 
         loadingStateProgressBarColor =
-                typedArray.getColor(R.styleable.ProgressActivity_loadingProgressBarColor, Color.RED);
+                typedArray.getColor(R.styleable.ProgressActivity_loadingProgressBarColor,getResources().getColor( R.color.colorPrimary));
 
         loadingStateBackgroundColor =
                 typedArray.getColor(R.styleable.ProgressActivity_loadingBackgroundColor, Color.TRANSPARENT);
@@ -155,7 +155,7 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
                 typedArray.getColor(R.styleable.ProgressActivity_errorButtonTextColor, Color.BLACK);
 
         errorStateButtonBackgroundColor =
-                typedArray.getColor(R.styleable.ProgressActivity_errorButtonBackgroundColor, Color.WHITE);
+                typedArray.getColor(R.styleable.ProgressActivity_errorButtonBackgroundColor, getResources().getColor( R.color.colorPrimary));
 
         errorStateBackgroundColor =
                 typedArray.getColor(R.styleable.ProgressActivity_errorBackgroundColor, Color.TRANSPARENT);
