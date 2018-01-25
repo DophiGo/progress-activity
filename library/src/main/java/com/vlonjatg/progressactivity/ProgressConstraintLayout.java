@@ -404,6 +404,7 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
             layoutParams.bottomToBottom = ConstraintSet.PARENT_ID;
             layoutParams.startToStart = ConstraintSet.PARENT_ID;
             layoutParams.endToEnd = ConstraintSet.PARENT_ID;
+            layoutParams.verticalBias=0.33f;
 
             addView(emptyState, layoutParams);
         } else {
