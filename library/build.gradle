@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.2"
 
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -14,4 +14,6 @@ android {
 
 dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //动画库
+    provided 'com.airbnb.android:lottie:2.5.0-beta3'
 }

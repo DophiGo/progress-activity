@@ -176,6 +176,11 @@ public class ProgressLinearLayout extends LinearLayout implements ProgressLayout
     }
 
     @Override
+    public void showBleSearch(String destrib) {
+
+    }
+
+    @Override
     public void showLoading(List<Integer> idsOfViewsNotToHide) {
         switchState(LOADING, 0, null, null, null, null, idsOfViewsNotToHide);
     }

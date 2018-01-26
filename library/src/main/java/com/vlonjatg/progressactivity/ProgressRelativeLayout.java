@@ -175,6 +175,11 @@ public class ProgressRelativeLayout extends RelativeLayout implements ProgressLa
     }
 
     @Override
+    public void showBleSearch(String destrib) {
+
+    }
+
+    @Override
     public void showLoading(List<Integer> idsOfViewsNotToHide) {
         switchState(LOADING, 0, null, null, null, null, idsOfViewsNotToHide);
     }

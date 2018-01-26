@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:airbnb="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_loading"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        airbnb:layout_constraintTop_toTopOf="parent"
+        airbnb:layout_constraintBottom_toTopOf="@+id/progress_text_loading"
+        airbnb:layout_constraintLeft_toLeftOf="parent"
+        airbnb:layout_constraintRight_toRightOf="parent"
+        airbnb:layout_constraintVertical_chainStyle="packed"
+        airbnb:lottie_autoPlay="true"
+        airbnb:lottie_fileName="blesearch.json"
+        airbnb:lottie_loop="true" />
+
+    <TextView
+        android:id="@+id/progress_text_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="loading..."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/animation_view" />
+
+</android.support.constraint.ConstraintLayout>

@@ -27,6 +27,7 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
     private final String LOADING = "type_loading";
     private final String EMPTY = "type_empty";
     private final String ERROR = "type_error";
+    private final String BLESEARCH = "type_blesearch";
 
     private LayoutInflater inflater;
     private View view;
@@ -48,6 +49,9 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
     private TextView errorStateTitleTextView;
     private TextView errorStateContentTextView;
     private Button errorStateButton;
+
+    private View bleSearch;
+    private TextView bleSearchTextView;
 
     private int loadingStateProgressBarWidth;
     private int loadingStateProgressBarHeight;
@@ -229,6 +233,10 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
     public void showError(Drawable icon, String title, String description, String buttonText, View.OnClickListener buttonClickListener, List<Integer> idsOfViewsNotToHide) {
         switchState(ERROR, icon, title, description, buttonText, buttonClickListener, idsOfViewsNotToHide);
     }
+    @Override
+    public void showBleSearch(String description){
+        switchState(BLESEARCH,0,null,description,null,null,Collections.<Integer>emptyList());
+    }
 
     private void switchState(String state, int icon, String title, String description,
                              String buttonText, OnClickListener buttonClickListener, List<Integer> idsOfViewsNotToHide) {
@@ -262,6 +270,11 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
                 errorStateContentTextView.setText(description);
                 errorStateButton.setText(buttonText);
                 errorStateButton.setOnClickListener(buttonClickListener);
+                break;
+            case BLESEARCH:
+                setContentVisibility(false, idsOfViewsNotToHide);
+                inflatBleSearch();
+                bleSearchTextView.setText(description);
                 break;
         }
     }
@@ -298,6 +311,11 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
                 errorStateButton.setText(buttonText);
                 errorStateButton.setOnClickListener(buttonClickListener);
                 break;
+            case BLESEARCH:
+                setContentVisibility(false, idsOfViewsNotToHide);
+                inflatBleSearch();
+                bleSearchTextView.setText(description);
+                break;
         }
     }
 
@@ -305,7 +323,14 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
         hideLoadingView();
         hideEmptyView();
         hideErrorView();
+        hideBleSearch();
         restoreDefaultBackground();
+    }
+
+    private void hideBleSearch() {
+        if (bleSearch != null) {
+            bleSearch.setVisibility(GONE);
+        }
     }
 
     private void hideLoadingView() {
@@ -409,6 +434,36 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
             addView(emptyState, layoutParams);
         } else {
             emptyState.setVisibility(VISIBLE);
+        }
+    }
+
+    //蓝牙搜索
+    private void inflatBleSearch(){
+        if (bleSearch == null) {
+            view = inflater.inflate(R.layout.view_loading_ble, null);
+            bleSearch = view.findViewById(R.id.layout_loading);
+            bleSearch.setTag(BLESEARCH);
+
+            if (loadingStateBackgroundColor != Color.TRANSPARENT) {
+                this.setBackgroundColor(loadingStateBackgroundColor);
+            }
+
+            //add by dxs
+            bleSearchTextView=view.findViewById(R.id.progress_text_loading);
+            bleSearchTextView.setTextSize(loadingStateTextSize);
+            bleSearchTextView.setTextColor(loadingStateTextColor);
+
+            LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            layoutParams.topToTop = ConstraintSet.PARENT_ID;
+            layoutParams.bottomToBottom = ConstraintSet.PARENT_ID;
+            layoutParams.startToStart = ConstraintSet.PARENT_ID;
+            layoutParams.endToEnd = ConstraintSet.PARENT_ID;
+            layoutParams.verticalBias=0.33f;
+
+            addView(bleSearch, layoutParams);
+        } else {
+            bleSearch.setVisibility(VISIBLE);
         }
     }
 

@@ -51,7 +51,8 @@ public class DetailsActivity extends AppCompatActivity {
         String state = getIntent().getStringExtra("STATE");
         switch (state) {
             case "LOADING":
-                progressLayout.showLoading(skipIds);
+//                progressLayout.showLoading(skipIds);
+                progressLayout.showBleSearch("速度发货的数据和当时v");
                 setTitle("Loading");
                 break;
             case "EMPTY":
