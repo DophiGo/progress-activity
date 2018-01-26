@@ -17,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -52,6 +54,7 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
 
     private View bleSearch;
     private TextView bleSearchTextView;
+    private LottieAnimationView bleSearchView;
 
     private int loadingStateProgressBarWidth;
     private int loadingStateProgressBarHeight;
@@ -447,7 +450,9 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
             if (loadingStateBackgroundColor != Color.TRANSPARENT) {
                 this.setBackgroundColor(loadingStateBackgroundColor);
             }
-
+            bleSearchView=view.findViewById(R.id.animation_view);
+            bleSearchView.getLayoutParams().width=loadingStateProgressBarWidth;
+            bleSearchView.getLayoutParams().height=loadingStateProgressBarHeight;
             //add by dxs
             bleSearchTextView=view.findViewById(R.id.progress_text_loading);
             bleSearchTextView.setTextSize(loadingStateTextSize);
