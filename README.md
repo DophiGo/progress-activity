@@ -1,5 +1,7 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-progress--activity-green.svg?style=flat)](https://android-arsenal.com/details/1/2386)
 
+[![](https://jitpack.io/v/dxsdyhm/progress-activity.svg)](https://jitpack.io/#dxsdyhm/progress-activity)
+
 # progress-activity
 
 If you are tired of constantly having to set up progress bars, empty views and error views, than this library is for you.
