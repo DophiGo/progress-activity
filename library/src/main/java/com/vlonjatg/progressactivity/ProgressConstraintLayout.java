@@ -254,12 +254,9 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
     private void switchState(String state, int icon, String title, String description,
                              String buttonText, OnClickListener buttonClickListener, List<Integer> idsOfViewsNotToHide) {
         this.state = state;
-        Log.e("dxsTest","state1:"+state);
         hideAllStates();
-        Log.e("dxsTest","state2:"+state);
         switch (state) {
             case CONTENT:
-                Log.e("dxsTest","state3:"+state);
                 setContentVisibility(true, idsOfViewsNotToHide);
                 break;
             case LOADING:
@@ -342,11 +339,8 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
     }
 
     private void hideBleSearch() {
-        Log.e("dxsTest","bleSearch:"+bleSearch);
         if (bleSearch != null) {
             bleSearch.setVisibility(GONE);
-            removeView(bleSearchView);
-            Log.e("dxsTest","bleSearch.setVisibility(GONE);:");
         }
     }
 
