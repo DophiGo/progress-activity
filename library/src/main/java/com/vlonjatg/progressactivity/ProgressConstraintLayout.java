@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -253,11 +254,12 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
     private void switchState(String state, int icon, String title, String description,
                              String buttonText, OnClickListener buttonClickListener, List<Integer> idsOfViewsNotToHide) {
         this.state = state;
-
+        Log.e("dxsTest","state1:"+state);
         hideAllStates();
-
+        Log.e("dxsTest","state2:"+state);
         switch (state) {
             case CONTENT:
+                Log.e("dxsTest","state3:"+state);
                 setContentVisibility(true, idsOfViewsNotToHide);
                 break;
             case LOADING:
@@ -340,8 +342,11 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
     }
 
     private void hideBleSearch() {
+        Log.e("dxsTest","bleSearch:"+bleSearch);
         if (bleSearch != null) {
             bleSearch.setVisibility(GONE);
+            removeView(bleSearchView);
+            Log.e("dxsTest","bleSearch.setVisibility(GONE);:");
         }
     }
 
@@ -526,7 +531,7 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
         super.addView(child, index, params);
 
-        if (child.getTag() == null || (!child.getTag().equals(LOADING) &&
+        if (child.getTag() == null || (!child.getTag().equals(BLESEARCH)&&!child.getTag().equals(LOADING) &&
                 !child.getTag().equals(EMPTY) && !child.getTag().equals(ERROR))) {
 
             contentViews.add(child);

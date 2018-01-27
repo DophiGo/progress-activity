@@ -2,6 +2,7 @@ package com.vlonjatg.sample.progressactivity;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -54,6 +55,12 @@ public class DetailsActivity extends AppCompatActivity {
 //                progressLayout.showLoading(skipIds);
                 progressLayout.showBleSearch("速度发货的数据和当时v",500,500);
                 setTitle("Loading");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressLayout.showContent();
+                    }
+                },3000);
                 break;
             case "EMPTY":
                 progressLayout.showEmpty(emptyDrawable,
