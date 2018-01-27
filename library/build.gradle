@@ -15,5 +15,6 @@ android {
 dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     //动画库
-    provided 'com.airbnb.android:lottie:2.5.0-beta3'
+    //provided 'com.airbnb.android:lottie:2.5.0-beta3'
+    compile 'com.airbnb.android:lottie:2.5.0-beta3'
 }

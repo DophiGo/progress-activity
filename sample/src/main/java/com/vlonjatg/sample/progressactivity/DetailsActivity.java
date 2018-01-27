@@ -52,7 +52,7 @@ public class DetailsActivity extends AppCompatActivity {
         switch (state) {
             case "LOADING":
 //                progressLayout.showLoading(skipIds);
-                progressLayout.showBleSearch("速度发货的数据和当时v");
+                progressLayout.showBleSearch("速度发货的数据和当时v",500,500);
                 setTitle("Loading");
                 break;
             case "EMPTY":

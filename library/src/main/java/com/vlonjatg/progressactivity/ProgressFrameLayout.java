@@ -181,6 +181,11 @@ public class ProgressFrameLayout extends FrameLayout implements ProgressLayout {
     }
 
     @Override
+    public void showBleSearch(String destrib, int w, int h) {
+
+    }
+
+    @Override
     public void showLoading(List<Integer> idsOfViewsNotToHide) {
         switchState(LOADING, 0, null, null, null, null, idsOfViewsNotToHide);
     }

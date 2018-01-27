@@ -55,6 +55,8 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
     private View bleSearch;
     private TextView bleSearchTextView;
     private LottieAnimationView bleSearchView;
+    private int LottieAnimationViewWidth=1000;
+    private int LottieAnimationViewHeight=1000;
 
     private int loadingStateProgressBarWidth;
     private int loadingStateProgressBarHeight;
@@ -239,6 +241,13 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
     @Override
     public void showBleSearch(String description){
         switchState(BLESEARCH,0,null,description,null,null,Collections.<Integer>emptyList());
+    }
+
+    @Override
+    public void showBleSearch(String destrib, int w, int h) {
+        LottieAnimationViewWidth=w;
+        LottieAnimationViewHeight=h;
+        showBleSearch(destrib);
     }
 
     private void switchState(String state, int icon, String title, String description,
@@ -451,8 +460,8 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
                 this.setBackgroundColor(loadingStateBackgroundColor);
             }
             bleSearchView=view.findViewById(R.id.animation_view);
-            bleSearchView.getLayoutParams().width=loadingStateProgressBarWidth;
-            bleSearchView.getLayoutParams().height=loadingStateProgressBarHeight;
+            bleSearchView.getLayoutParams().width=LottieAnimationViewWidth;
+            bleSearchView.getLayoutParams().height=LottieAnimationViewHeight;
             //add by dxs
             bleSearchTextView=view.findViewById(R.id.progress_text_loading);
             bleSearchTextView.setTextSize(loadingStateTextSize);

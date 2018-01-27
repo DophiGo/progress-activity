@@ -14,6 +14,8 @@ public interface ProgressLayout {
 
     public void showBleSearch(String destrib);
 
+    public void showBleSearch(String destrib,int w,int h);
+
     public void showLoading(List<Integer> idsOfViewsNotToHide);
 
     public void showEmpty(int icon, String title, String description);
