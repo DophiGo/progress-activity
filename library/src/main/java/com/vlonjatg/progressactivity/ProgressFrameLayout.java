@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +31,7 @@ public class ProgressFrameLayout extends FrameLayout implements ProgressLayout {
     private final String LOADING = "type_loading";
     private final String EMPTY = "type_empty";
     private final String ERROR = "type_error";
+    private final String BLESEARCH = "type_blesearch";
 
     private LayoutInflater inflater;
     private View view;
@@ -47,6 +52,14 @@ public class ProgressFrameLayout extends FrameLayout implements ProgressLayout {
     private TextView errorStateTitleTextView;
     private TextView errorStateContentTextView;
     private Button errorStateButton;
+
+    private View bleSearch;
+    private TextView bleSearchTextView;
+    private LottieAnimationView bleSearchView;
+    private int LottieAnimationViewWidth=1000;
+    private int LottieAnimationViewHeight=1000;
+    private int loadingStateTextColor;
+    private int loadingStateTextSize;
 
     private int loadingStateProgressBarWidth;
     private int loadingStateProgressBarHeight;
@@ -155,6 +168,9 @@ public class ProgressFrameLayout extends FrameLayout implements ProgressLayout {
         errorStateBackgroundColor =
                 typedArray.getColor(R.styleable.ProgressActivity_errorBackgroundColor, Color.TRANSPARENT);
 
+        loadingStateTextColor=typedArray.getColor(R.styleable.ProgressActivity_loadingTextColor, Color.parseColor("#8a8a8a"));
+        loadingStateTextSize=typedArray.getColor(R.styleable.ProgressActivity_loadingTextSize, 14);
+
         typedArray.recycle();
 
         defaultBackground = this.getBackground();
@@ -176,13 +192,15 @@ public class ProgressFrameLayout extends FrameLayout implements ProgressLayout {
     }
 
     @Override
-    public void showBleSearch(String destrib) {
-
+    public void showBleSearch(String description){
+        switchState(BLESEARCH,0,null,description,null,null,Collections.<Integer>emptyList());
     }
 
     @Override
     public void showBleSearch(String destrib, int w, int h) {
-
+        LottieAnimationViewWidth=w;
+        LottieAnimationViewHeight=h;
+        showBleSearch(destrib);
     }
 
     @Override
@@ -262,6 +280,11 @@ public class ProgressFrameLayout extends FrameLayout implements ProgressLayout {
                 errorStateButton.setText(buttonText);
                 errorStateButton.setOnClickListener(buttonClickListener);
                 break;
+            case BLESEARCH:
+                setContentVisibility(false, idsOfViewsNotToHide);
+                inflatBleSearch();
+                bleSearchTextView.setText(description);
+                break;
         }
     }
 
@@ -297,6 +320,11 @@ public class ProgressFrameLayout extends FrameLayout implements ProgressLayout {
                 errorStateButton.setText(buttonText);
                 errorStateButton.setOnClickListener(buttonClickListener);
                 break;
+            case BLESEARCH:
+                setContentVisibility(false, idsOfViewsNotToHide);
+                inflatBleSearch();
+                bleSearchTextView.setText(description);
+                break;
         }
     }
 
@@ -304,7 +332,14 @@ public class ProgressFrameLayout extends FrameLayout implements ProgressLayout {
         hideLoadingView();
         hideEmptyView();
         hideErrorView();
+        hideBleSearch();
         restoreDefaultBackground();
+    }
+
+    private void hideBleSearch() {
+        if (bleSearch != null) {
+            bleSearch.setVisibility(GONE);
+        }
     }
 
     private void hideLoadingView() {
@@ -436,11 +471,39 @@ public class ProgressFrameLayout extends FrameLayout implements ProgressLayout {
         }
     }
 
+    //蓝牙搜索
+    private void inflatBleSearch(){
+        if (bleSearch == null) {
+            view = inflater.inflate(R.layout.view_loading_ble, null);
+            bleSearch = view.findViewById(R.id.layout_loading);
+            bleSearch.setTag(BLESEARCH);
+
+            if (loadingStateBackgroundColor != Color.TRANSPARENT) {
+                this.setBackgroundColor(loadingStateBackgroundColor);
+            }
+            bleSearchView=view.findViewById(R.id.animation_view);
+            bleSearchView.getLayoutParams().width=LottieAnimationViewWidth;
+            bleSearchView.getLayoutParams().height=LottieAnimationViewHeight;
+            //add by dxs
+            bleSearchTextView=view.findViewById(R.id.progress_text_loading);
+            bleSearchTextView.setTextSize(loadingStateTextSize);
+            bleSearchTextView.setTextColor(loadingStateTextColor);
+
+            LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT);
+            layoutParams.gravity = Gravity.CENTER;
+
+            addView(bleSearch, layoutParams);
+        } else {
+            bleSearch.setVisibility(VISIBLE);
+        }
+    }
+
     @Override
     public void addView(View child, int index, ViewGroup.LayoutParams params) {
         super.addView(child, index, params);
 
-        if (child.getTag() == null || (!child.getTag().equals(LOADING) &&
+        if (child.getTag() == null || (!child.getTag().equals(BLESEARCH)&&!child.getTag().equals(LOADING) &&
                 !child.getTag().equals(EMPTY) && !child.getTag().equals(ERROR))) {
 
             contentViews.add(child);

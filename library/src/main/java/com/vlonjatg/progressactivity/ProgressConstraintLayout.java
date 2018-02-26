@@ -118,7 +118,7 @@ public class ProgressConstraintLayout extends ConstraintLayout implements XTProg
         loadingStateBackgroundColor =
                 typedArray.getColor(R.styleable.ProgressActivity_loadingBackgroundColor, Color.TRANSPARENT);
 
-        loadingStateTextColor=typedArray.getColor(R.styleable.ProgressActivity_loadingTextColor, Color.BLACK);
+        loadingStateTextColor=typedArray.getColor(R.styleable.ProgressActivity_loadingTextColor, Color.parseColor("#8a8a8a"));
         loadingStateTextSize=typedArray.getColor(R.styleable.ProgressActivity_loadingTextSize, 14);
         //Empty state attrs
         emptyStateImageWidth =
