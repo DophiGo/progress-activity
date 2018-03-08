@@ -64,8 +64,8 @@ public class DetailsActivity extends AppCompatActivity {
                 break;
             case "EMPTY":
                 progressLayout.showEmpty(emptyDrawable,
-                        "Empty Shopping Cart",
-                        "Please add things in the cart to continue.", skipIds);
+                        "fhaehdajadjdgh",
+                        "", skipIds);
                 setTitle("Empty");
                 break;
             case "ERROR":
