@@ -127,16 +127,16 @@ public class ProgressFrameLayout extends FrameLayout implements ProgressLayout {
                 typedArray.getDimensionPixelSize(R.styleable.ProgressActivity_emptyImageHeight, 308);
 
         emptyStateTitleTextSize =
-                typedArray.getDimensionPixelSize(R.styleable.ProgressActivity_emptyTitleTextSize, 15);
+                typedArray.getDimensionPixelSize(R.styleable.ProgressActivity_emptyTitleTextSize, 16);
 
         emptyStateTitleTextColor =
-                typedArray.getColor(R.styleable.ProgressActivity_emptyTitleTextColor, Color.BLACK);
+                typedArray.getColor(R.styleable.ProgressActivity_emptyTitleTextColor, Color.parseColor("#8a8a8a"));
 
         emptyStateContentTextSize =
                 typedArray.getDimensionPixelSize(R.styleable.ProgressActivity_emptyContentTextSize, 14);
 
         emptyStateContentTextColor =
-                typedArray.getColor(R.styleable.ProgressActivity_emptyContentTextColor, Color.BLACK);
+                typedArray.getColor(R.styleable.ProgressActivity_emptyContentTextColor,  Color.parseColor("#8a8a8a"));
 
         emptyStateBackgroundColor =
                 typedArray.getColor(R.styleable.ProgressActivity_emptyBackgroundColor, Color.TRANSPARENT);
